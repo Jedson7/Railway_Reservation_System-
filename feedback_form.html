@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Feedback/Suggestion Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url(train.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        function submitFeedback() {
+            let name = document.getElementById("passenger-name").value.trim();
+            let pnr = document.getElementById("pnr-number").value.trim();
+            let feedbackType = document.getElementById("feedback-type").value;
+            let comments = document.getElementById("feedback-comments").value.trim();
+            
+            if (name === "" || pnr === "" || feedbackType === "" || comments === "") {
+                alert("Please fill out all fields before submitting.");
+                return;
+            }
+            
+            alert("Feedback submitted successfully!\nPNR: " + pnr + "\nFeedback Type: " + feedbackType);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Train Feedback/Suggestion Form</h2>
+        <form>
+            <label for="passenger-name">Passenger Name:</label>
+            <input type="text" id="passenger-name" name="passenger-name" required>
+
+            <label for="pnr-number">PNR Number:</label>
+            <input type="text" id="pnr-number" name="pnr-number" required>
+
+            <label for="feedback-type">Feedback Type:</label>
+            <select id="feedback-type" name="feedback-type">
+                <option value="">--Select--</option>
+                <option value="Train Experience">Train Experience</option>
+                <option value="Staff Behavior">Staff Behavior</option>
+                <option value="Facilities">Facilities</option>
+                <option value="Suggestions for Improvement">Suggestions for Improvement</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="feedback-comments">Your Comments:</label>
+            <textarea id="feedback-comments" name="feedback-comments" rows="4" required></textarea>
+            
+            <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>

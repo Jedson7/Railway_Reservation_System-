@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Train Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url(train.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #c82333;
+        }
+    </style>
+    <script>
+        function cancelTicket() {
+            let pnr = document.getElementById("pnr-number").value.trim();
+            let reason = document.getElementById("cancel-reason").value;
+            
+            if (pnr === "") {
+                alert("Please enter PNR Number.");
+                return;
+            }
+            
+            if (reason === "") {
+                alert("Please select a reason for cancellation.");
+                return;
+            }
+            
+            alert("Ticket cancellation successful!\nPNR: " + pnr + "\nReason: " + reason);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Cancel Train Ticket</h2>
+        <form>
+            <label for="pnr-number">PNR Number:</label>
+            <input type="text" id="pnr-number" name="pnr-number" required>
+
+            <label for="cancel-reason">Reason for Cancellation:</label>
+            <select id="cancel-reason" name="cancel-reason">
+                <option value="">--Select--</option>
+                <option value="Change of Plans">Change of Plans</option>
+                <option value="Health Issues">Health Issues</option>
+                <option value="Train Delay">Train Delay</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <button type="button" onclick="cancelTicket()">Cancel Ticket</button>
+        </form>
+    </div>
+</body>
+</html>

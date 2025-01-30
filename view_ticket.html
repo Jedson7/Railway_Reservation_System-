@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Train Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('train.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        function showOptions() {
+            let option = document.getElementById("modify-option").value;
+            document.getElementById("boarding-input").style.display = option === "change-boarding" ? "block" : "none";
+            document.getElementById("date-input").style.display = option === "reschedule-date" ? "block" : "none";
+            document.getElementById("passenger-name-input").style.display = option === "change-passenger-name" ? "block" : "none";
+            document.getElementById("class-upgrade-input").style.display = option === "upgrade-class" ? "block" : "none";
+        }
+
+        function modifyTicket() {
+            let pnr = document.getElementById("pnr-number").value.trim();
+            let option = document.getElementById("modify-option").value;
+            let boarding = document.getElementById("new-boarding").value.trim();
+            let date = document.getElementById("new-date").value.trim();
+            let passengerName = document.getElementById("new-passenger-name").value.trim();
+            let upgradeClass = document.getElementById("new-class").value;
+            
+            if (pnr === "") {
+                alert("Please enter PNR Number.");
+                return;
+            }
+            
+            if (option === "change-boarding" && boarding === "") {
+                alert("Please enter new boarding station.");
+                return;
+            }
+            
+            if (option === "reschedule-date" && date === "") {
+                alert("Please select a new travel date.");
+                return;
+            }
+
+            if (option === "change-passenger-name" && passengerName === "") {
+                alert("Please enter the new passenger name.");
+                return;
+            }
+
+            if (option === "upgrade-class" && upgradeClass === "") {
+                alert("Please select the new class for upgrade.");
+                return;
+            }
+            
+            alert("Ticket modification successful!\nPNR: " + pnr + "\nModification: " + option + (boarding ? "\nNew Boarding: " + boarding : "") + (date ? "\nNew Date: " + date : "") + (passengerName ? "\nNew Passenger Name: " + passengerName : "") + (upgradeClass ? "\nUpgraded Class: " + upgradeClass : ""));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Modify Train Ticket</h2>
+        <form>
+            <label for="pnr-number">PNR Number:</label>
+            <input type="text" id="pnr-number" name="pnr-number" required>
+
+            <label for="modify-option">Select Modification:</label>
+            <select id="modify-option" name="modify-option" onchange="showOptions()">
+                <option value="">--Select--</option>
+                <option value="change-boarding">Change Boarding Station</option>
+                <option value="reschedule-date">Reschedule Date</option>
+                <option value="change-passenger-name">Change Passenger Name</option>
+                <option value="upgrade-class">Upgrade Class</option>
+            </select>
+
+            <div id="boarding-input" style="display: none;">
+                <label for="new-boarding">New Boarding Station:</label>
+                <input type="text" id="new-boarding" name="new-boarding">
+            </div>
+            
+            <div id="date-input" style="display: none;">
+                <label for="new-date">New Travel Date:</label>
+                <input type="date" id="new-date" name="new-date">
+            </div>
+
+            <div id="passenger-name-input" style="display: none;">
+                <label for="new-passenger-name">New Passenger Name:</label>
+                <input type="text" id="new-passenger-name" name="new-passenger-name">
+            </div>
+
+            <div id="class-upgrade-input" style="display: none;">
+                <label for="new-class">Select New Class:</label>
+                <select id="new-class" name="new-class">
+                    <option value="">--Select--</option>
+                    <option value="Sleeper">Sleeper</option>
+                    <option value="AC 3 Tier">AC 3 Tier</option>
+                    <option value="AC 2 Tier">AC 2 Tier</option>
+                    <option value="First AC">First AC</option>
+                </select>
+            </div>
+            
+            <button type="button" onclick="modifyTicket()">Modify Ticket</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('train.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(244, 247, 250, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 0; 
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            display: none;
+            z-index: 1;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .input-field:focus {
+            border-color: #046cf5;
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #046cf5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #046cf5;
+        }
+        .form-link {
+            color: #007bff;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .form-link:hover {
+            text-decoration: underline;
+        }
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .separator::before, .separator::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #ccc;
+        }
+        .separator span {
+            padding: 0 10px;
+            color: #043df8;
+        }
+        .welcome-container {
+            display: none;
+            text-align: center;
+            color: #03f40b;
+            background-attachment: fixed;
+        }
+
+        .gender-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .gender-box label {
+            margin: 0 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="login-form" class="form-container" style="display: block;">
+        <h2>Railway Reservation System Login</h2>
+        <form id="loginForm" action="javascript:void(0)" method="post">
+            <input type="text" id="username" class="input-field" placeholder="Username" required>
+            <input type="password" id="password" class="input-field" placeholder="Password" required>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+
+        <div class="form-link">
+            <a href="javascript:void(0);" onclick="showForgotPasswordForm()">Forgot Password?</a>
+        </div>
+        <div class="form-link">
+            <p>New user? <a href="javascript:void(0);" onclick="showCreateAccountForm()">Create an account</a></p>
+        </div>
+    </div>
+
+    <div id="forgot-password-form" class="form-container">
+        <h2>Reset Password</h2>
+        <form action="javascript:void(0)" method="post">
+            <input type="email" name="email" class="input-field" placeholder="Enter your email" required>
+            <button type="submit" class="submit-btn">Reset Password</button>
+        </form>
+        <div class="form-link">
+            <p><a href="javascript:void(0);" onclick="showLoginForm()">Back to Login</a></p>
+        </div>
+    </div>
+
+    <div id="create-account-form" class="form-container">
+        <h2>Create Your Account</h2>
+        <form id="createAccountForm" action="javascript:void(0)" method="post">
+            <input type="text" name="name" class="input-field" placeholder="Full Name" required>
+            <input type="number" name="age" class="input-field" placeholder="Age" required>
+            <div class="gender-box">
+                <label>Gender</label>
+                <label for="male">
+                    <input type="radio" name="gender" value="Male" id="male" required> Male
+                </label>
+                <label for="female">
+                    <input type="radio" name="gender" value="Female" id="female" required> Female
+                </label>
+            </div>
+            <input type="text" name="username" class="input-field" placeholder="Username" required>
+            <input type="email" name="email" id="email" class="input-field" placeholder="Email" required>
+            <input type="password" name="password" id="pwd" class="input-field" placeholder="Password (at least 8 characters)" required>
+            <input type="text" name="phone" id="phone" class="input-field" placeholder="Phone Number (10 digits)" required pattern="^\d{10}$">
+            <input type="date" name="dob" class="input-field" placeholder="Date of Birth" required>
+            <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+        <div class="form-link">
+            <p><a href="javascript:void(0);" onclick="showLoginForm()">Back to Login</a></p>
+        </div>
+    </div>
+
+    <div id="welcome-container" class="welcome-container">
+        <h2>Welcome to the Railway Reservation System!</h2>
+        <p>You have logged in successfully.</p>
+    </div>
+</div>
+
+<script>
+    function showLoginForm() {
+        document.getElementById("login-form").style.display = "block";
+        document.getElementById("forgot-password-form").style.display = "none";
+        document.getElementById("create-account-form").style.display = "none";
+        document.getElementById("welcome-container").style.display = "none";
+    }
+
+    function showForgotPasswordForm() {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("forgot-password-form").style.display = "block";
+        document.getElementById("create-account-form").style.display = "none";
+        document.getElementById("welcome-container").style.display = "none";
+    }
+
+    function showCreateAccountForm() {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("forgot-password-form").style.display = "none";
+        document.getElementById("create-account-form").style.display = "block";
+        document.getElementById("welcome-container").style.display = "none";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("welcome-container").style.display = "block";
+    });
+
+    document.getElementById("createAccountForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("pwd").value;
+        var phone = document.getElementById("phone").value;
+
+        var gender = document.querySelector('input[name="gender"]:checked');
+        
+        if (!gender) {
+            alert("Please select a gender.");
+            return;
+        }
+        gender = gender.value;
+
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        var passwordValid = password.length >= 8;
+        var phoneValid = /^\d{10}$/.test(phone);
+
+        if (!email.match(emailPattern)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!passwordValid) {
+            alert("Password must be at least 8 characters.");
+            return;
+        }
+
+        if (!phoneValid) {
+            alert("Phone number must be exactly 10 digits.");
+            return;
+        }
+
+        alert("Account created successfully!");
+        console.log("Account Details:", {email, password, phone, gender});
+        showLoginForm();
+    });
+</script>
+
+</body>
+</html>

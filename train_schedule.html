@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Schedule Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('train.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+    </style>
+    <script>
+        function searchTrain() {
+            let trainName = document.getElementById("train-name").value.trim();
+            let trainNumber = document.getElementById("train-number").value.trim();
+            let destination = document.getElementById("destination").value.trim();
+            let boarding = document.getElementById("boarding").value.trim();
+            let date = document.getElementById("date").value.trim();
+
+            if (trainName === "" || trainNumber === "" || departure === "" || boarding === "" || date === "") {
+                alert("Please fill out all fields before searching.");
+                return;
+            }
+            alert("Train Found");
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Train Schedule</h2>
+        <form>
+            <label for="train-name">Train Name:</label>
+            <input type="text" id="train-name" name="train-name" required>
+
+            <label for="train-number">Train Number:</label>
+            <input type="text" id="train-number" name="train-number" required>
+
+            <label for="boarding">Boarding Station:</label>
+            <input type="text" id="boarding" name="boarding" required>
+
+            <label for="destination">Destination Station:</label>
+            <input type="text" id="destination" name="destination" required>
+
+            <label for="date">Date of Travel:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="button" onclick="searchTrain()">Search</button>
+        </form>
+    </div>
+</body> 
+
+</html> 

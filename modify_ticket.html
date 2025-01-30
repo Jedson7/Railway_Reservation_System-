@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Train Ticket Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url(train.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        function toggleInputs() {
+            let action = document.getElementById("action").value;
+            let extraFields = document.getElementById("extra-fields");
+
+            extraFields.innerHTML = ''; // Clear previous extra fields
+            
+            if (action === "Change Boarding Station") {
+                extraFields.innerHTML = `
+                    <label for="new-boarding-station">New Boarding Station:</label>
+                    <input type="text" id="new-boarding-station" name="new-boarding-station" required>
+                    <label for="reason-boarding">Reason for Change:</label>
+                    <textarea id="reason-boarding" name="reason-boarding" rows="4"></textarea>
+                `;
+            } else if (action === "Reschedule Travel Date") {
+                extraFields.innerHTML = `
+                    <label for="new-travel-date">New Travel Date:</label>
+                    <input type="date" id="new-travel-date" name="new-travel-date" required>
+                    <label for="reason-date">Reason for Rescheduling:</label>
+                    <textarea id="reason-date" name="reason-date" rows="4"></textarea>
+                `;
+            } else if (action === "Cancel Ticket") {
+                extraFields.innerHTML = `
+                    <label for="cancellation-reason">Reason for Cancellation:</label>
+                    <textarea id="cancellation-reason" name="cancellation-reason" rows="4"></textarea>
+                    <label for="refund-request">Request Refund:</label>
+                    <select id="refund-request" name="refund-request">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                `;
+            } else if (action === "Upgrade Seat Class") {
+                extraFields.innerHTML = `
+                    <label for="new-seat-class">New Seat Class:</label>
+                    <select id="new-seat-class" name="new-seat-class">
+                        <option value="Second AC">Second AC</option>
+                        <option value="Third AC">Third AC</option>
+                        <option value="First AC">First AC</option>
+                    </select>
+                `;
+            } else if (action === "Change Passenger Name") {
+                extraFields.innerHTML = `
+                    <label for="new-passenger-name">New Passenger Name:</label>
+                    <input type="text" id="new-passenger-name" name="new-passenger-name" required>
+                    <label for="name-change-reason">Reason for Change:</label>
+                    <textarea id="name-change-reason" name="name-change-reason" rows="4"></textarea>
+                `;
+            }
+        }
+
+        function submitModification() {
+            let pnr = document.getElementById("pnr-number").value.trim();
+            let passengerName = document.getElementById("passenger-name").value.trim();
+            let action = document.getElementById("action").value;
+            
+            // Gather common ticket info
+            if (pnr === "" || passengerName === "" || action === "") {
+                alert("Please fill out all required fields before submitting.");
+                return;
+            }
+            
+            let extraDetails = '';
+            if (action === "Change Boarding Station") {
+                let newBoardingStation = document.getElementById("new-boarding-station").value;
+                let reasonBoarding = document.getElementById("reason-boarding").value;
+                extraDetails = `New Boarding Station: ${newBoardingStation}\nReason: ${reasonBoarding}`;
+            } else if (action === "Reschedule Travel Date") {
+                let newTravelDate = document.getElementById("new-travel-date").value;
+                let reasonDate = document.getElementById("reason-date").value;
+                extraDetails = `New Travel Date: ${newTravelDate}\nReason: ${reasonDate}`;
+            } else if (action === "Cancel Ticket") {
+                let cancellationReason = document.getElementById("cancellation-reason").value;
+                let refundRequest = document.getElementById("refund-request").value;
+                extraDetails = `Cancellation Reason: ${cancellationReason}\nRefund Request: ${refundRequest}`;
+            } else if (action === "Upgrade Seat Class") {
+                let newSeatClass = document.getElementById("new-seat-class").value;
+                extraDetails = `New Seat Class: ${newSeatClass}`;
+            } else if (action === "Change Passenger Name") {
+                let newPassengerName = document.getElementById("new-passenger-name").value;
+                let nameChangeReason = document.getElementById("name-change-reason").value;
+                extraDetails = `New Passenger Name: ${newPassengerName}\nReason: ${nameChangeReason}`;
+            }
+
+            alert("Ticket modification request submitted successfully!\nPNR: " + pnr + "\nPassenger Name: " + passengerName + "\nAction: " + action + "\n" + extraDetails);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Modify Train Ticket Form</h2>
+        <form>
+            <label for="pnr-number">PNR Number:</label>
+            <input type="text" id="pnr-number" name="pnr-number" required>
+
+            <label for="passenger-name">Passenger Name:</label>
+            <input type="text" id="passenger-name" name="passenger-name" required>
+
+            <label for="action">Choose an Action:</label>
+            <select id="action" name="action" onchange="toggleInputs()" required>
+                <option value="">--Select--</option>
+                <option value="Change Boarding Station">Change Boarding Station</option>
+                <option value="Reschedule Travel Date">Reschedule Travel Date</option>
+                <option value="Cancel Ticket">Cancel Ticket</option>
+                <option value="Upgrade Seat Class">Upgrade Seat Class</option>
+                <option value="Change Passenger Name">Change Passenger Name</option>
+            </select>
+
+            <div id="extra-fields"></div>
+
+            <button type="button" onclick="submitModification()">Modify Ticket</button>
+        </form>
+    </div>
+</body>
+</html>
